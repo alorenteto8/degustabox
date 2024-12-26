@@ -81,7 +81,6 @@ class Task
     public function removeSession(TaskSession $session): self
     {
         if ($this->sessions->removeElement($session)) {
-            // Set the owning side to null (unless already changed)
             if ($session->getTask() === $this) {
                 $session->setTask(null);
             }
