@@ -1,14 +1,14 @@
 # “Time Tracker” Developer Exercise
 
 ## Description
-This is a task management system that allows tracking time spent on tasks through sessions. The system is built with **Symfony** and follows software design principles such as **Hexagonal Architecture** and **SOLID**. 
+This is a task management system that allows tracking time spent on tasks through sessions. The system is built with **Symfony** and follows software design principles such as **Hexagonal Architecture** and **SOLID**.
 
 ## Requirements
 
 - **PHP 8.0+**
 - **Symfony 6+**
 - **Composer**
-- **MySQL** 
+- **MySQL**
 
 ## Installation
 
@@ -35,14 +35,20 @@ composer install
 ```
 This will install all the PHP dependencies listed in the composer.json file.
 
-### 4. Install JavaScript dependencies with npm:
+### 4. Environment Configuration
+You'll need to create an environment file: .env.local. This file store the database credentials.
+
+1. Copy .env
+2. Create .env.local
+
+### 5. Install JavaScript dependencies with npm:
 
 ```bash
 npm install
 ```
 This will install all the JavaScript dependencies required for building the frontend.
 
-### 5. Build frontend assets
+### 6. Build frontend assets
 
 ```bash
 npm run dev
