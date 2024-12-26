@@ -40,8 +40,8 @@ class DoctrineTaskSessionRepository extends ServiceEntityRepository implements T
             ->where('ts.startTime >= :todayStart')
             ->andWhere('ts.endTime <= :todayEnd')
             ->andWhere('ts.endTime IS NOT NULL')
-            ->setParameter('todayStart', $todayStart->format('Y-m-d H:i:s')) // Formatear las fechas
-            ->setParameter('todayEnd', $todayEnd->format('Y-m-d H:i:s'))     // Formatear las fechas
+            ->setParameter('todayStart', $todayStart->format('Y-m-d H:i:s'))
+            ->setParameter('todayEnd', $todayEnd->format('Y-m-d H:i:s'))
             ->getQuery();
 
         return $qb->getResult();
