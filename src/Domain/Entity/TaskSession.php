@@ -28,8 +28,6 @@ class TaskSession
     #[ORM\Column(type: 'datetime', nullable: false)]
     private ?\DateTime $updatedAt;
 
-    // Getters and setters
-
     public function getId(): ?int
     {
         return $this->id;
