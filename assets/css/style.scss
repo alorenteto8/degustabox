@@ -1,0 +1,75 @@
+/* General Styles */
+body {
+    font-family: Roboto, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+.today-worked,
+.task-tracker,
+.task-history {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.task-tracker {
+    &__title {
+        color: #333;
+    }
+
+    &__controls {
+        margin-bottom: 20px;
+    }
+
+    &__input {
+        padding: 8px;
+        margin-right: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    &__button {
+        padding: 8px 15px;
+        background-color: #42b983;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+
+        &--stop {
+            background-color: red;
+        }
+
+        &:hover {
+            background-color: #357a59;
+        }
+    }
+
+    &__current-task {
+        margin-top: 20px;
+    }
+
+    &__task-name {
+        color: #333;
+    }
+}
+.task-history {
+    &__title {
+        color: #333;
+    }
+
+    &__list{
+        list-style: none;
+        padding: 0;
+
+        &__item {
+            padding: 10px 0;
+        }
+    }
+
+    &__task {
+        padding: 5px 0;
+    }
+}
