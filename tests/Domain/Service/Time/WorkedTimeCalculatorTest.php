@@ -17,13 +17,10 @@ class WorkedTimeCalculatorTest extends TestCase
 
     protected function setUp(): void
     {
-        // Mock de TaskSessionRepository
         $this->taskSessionRepository = $this->createMock(TaskSessionRepositoryInterface::class);
 
-        // Mock de TimeFormatter
         $this->timeFormatter = $this->createMock(TimeFormatter::class);
 
-        // Instanciamos WorkedTimeCalculator con ambos mocks
         $this->workedTimeCalculator = new WorkedTimeCalculator(
             $this->taskSessionRepository,
             $this->timeFormatter
@@ -32,21 +29,17 @@ class WorkedTimeCalculatorTest extends TestCase
 
     public function testGetTotalWorkedHoursTodayReturnsEmptyWhenNoSessions(): void
     {
-        // Configuración del mock para que devuelva un array vacío
         $this->taskSessionRepository
             ->method('getTodayWorkedHours')
             ->willReturn([]);
 
-        // Ejecutamos el método
         $result = $this->workedTimeCalculator->getTotalWorkedHoursToday();
 
-        // Verificamos el resultado
         $this->assertEquals('0h 0m 0s', $result);
     }
 
     public function testGetTotalWorkedHoursTodayCalculatesCorrectly(): void
     {
-        // Creamos las sesiones de trabajo con tiempos de inicio y fin
         $session1 = $this->createMock(TaskSession::class);
         $session1
             ->method('getStartTime')
@@ -63,27 +56,22 @@ class WorkedTimeCalculatorTest extends TestCase
             ->method('getEndTime')
             ->willReturn(new DateTime('2023-01-01 12:15:00'));
 
-        // Configuración para que el repositorio devuelva ambas sesiones
         $this->taskSessionRepository
             ->method('getTodayWorkedHours')
             ->willReturn([$session1, $session2]);
 
-        // Mock del método format de TimeFormatter
         $this->timeFormatter
             ->method('format')
-            ->with(13500) // 13500 segundos = 3 horas 45 minutos
+            ->with(13500)
             ->willReturn('3h 45m 0s');
 
-        // Ejecutamos el método
         $result = $this->workedTimeCalculator->getTotalWorkedHoursToday();
 
-        // Verificamos el resultado
         $this->assertEquals('3h 45m 0s', $result);
     }
 
     public function testGetTotalWorkedHoursTodayHandlesIncompleteSessions(): void
     {
-        // Creamos una sesión con un tiempo de fin nulo
         $session = $this->createMock(TaskSession::class);
         $session
             ->method('getStartTime')
@@ -92,21 +80,17 @@ class WorkedTimeCalculatorTest extends TestCase
             ->method('getEndTime')
             ->willReturn(null);
 
-        // Configuración para que el repositorio devuelva la sesión incompleta
         $this->taskSessionRepository
             ->method('getTodayWorkedHours')
             ->willReturn([$session]);
 
-        // Ejecutamos el método
         $result = $this->workedTimeCalculator->getTotalWorkedHoursToday();
 
-        // Verificamos que el resultado sea '0h 0m 0s' porque la sesión está incompleta
         $this->assertEquals('0h 0m 0s', $result);
     }
 
     public function testGetTotalWorkedHoursTodayHandlesMixedSessions(): void
     {
-        // Creamos sesiones mixtas (completas e incompletas)
         $session1 = $this->createMock(TaskSession::class);
         $session1
             ->method('getStartTime')
@@ -121,23 +105,19 @@ class WorkedTimeCalculatorTest extends TestCase
             ->willReturn(new DateTime('2023-01-01 10:00:00'));
         $session2
             ->method('getEndTime')
-            ->willReturn(null); // Incompleta
+            ->willReturn(null);
 
-        // Configuración para que el repositorio devuelva las dos sesiones
         $this->taskSessionRepository
             ->method('getTodayWorkedHours')
             ->willReturn([$session1, $session2]);
 
-        // Mock del método format de TimeFormatter
         $this->timeFormatter
             ->method('format')
-            ->with(5400) // 5400 segundos = 1 hora 30 minutos
+            ->with(5400)
             ->willReturn('1h 30m 0s');
 
-        // Ejecutamos el método
         $result = $this->workedTimeCalculator->getTotalWorkedHoursToday();
 
-        // Verificamos el resultado
         $this->assertEquals('1h 30m 0s', $result);
     }
 }
